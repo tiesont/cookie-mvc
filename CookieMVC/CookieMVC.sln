@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieMVC.Web", "CookieMVC.Web\CookieMVC.Web.csproj", "{71A3700A-9477-443C-9AA0-89C85BD934F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieMVC.Security", "CookieMVC.Security\CookieMVC.Security.csproj", "{6FB42075-7754-43BB-A3C6-DAD51015EF9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieMVC.ApplicationServices", "CookieMVC.ApplicationServices\CookieMVC.ApplicationServices.csproj", "{2EEEEDE0-48DC-487E-A60E-BE4F220E7CFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieMVC.Data", "CookieMVC.Data\CookieMVC.Data.csproj", "{F8630ABA-B775-457D-B5AE-B647BAC5F13F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieMVC.Helpers", "CookieMVC.Helpers\CookieMVC.Helpers.csproj", "{79377353-C830-4BDD-A6D8-BACC12E29611}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71A3700A-9477-443C-9AA0-89C85BD934F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71A3700A-9477-443C-9AA0-89C85BD934F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71A3700A-9477-443C-9AA0-89C85BD934F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71A3700A-9477-443C-9AA0-89C85BD934F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FB42075-7754-43BB-A3C6-DAD51015EF9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FB42075-7754-43BB-A3C6-DAD51015EF9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FB42075-7754-43BB-A3C6-DAD51015EF9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FB42075-7754-43BB-A3C6-DAD51015EF9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EEEEDE0-48DC-487E-A60E-BE4F220E7CFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EEEEDE0-48DC-487E-A60E-BE4F220E7CFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EEEEDE0-48DC-487E-A60E-BE4F220E7CFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EEEEDE0-48DC-487E-A60E-BE4F220E7CFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8630ABA-B775-457D-B5AE-B647BAC5F13F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8630ABA-B775-457D-B5AE-B647BAC5F13F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8630ABA-B775-457D-B5AE-B647BAC5F13F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8630ABA-B775-457D-B5AE-B647BAC5F13F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79377353-C830-4BDD-A6D8-BACC12E29611}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79377353-C830-4BDD-A6D8-BACC12E29611}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79377353-C830-4BDD-A6D8-BACC12E29611}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79377353-C830-4BDD-A6D8-BACC12E29611}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
