@@ -92,7 +92,7 @@ namespace CookieMVC.ApplicationServices
 
         public bool IsResetTokenValid(string token)
         {
-            return Context.Users.Any(u => u.ResetToken.Equals(token, StringComparison.OrdinalIgnoreCase));
+            return Context.Users.Any(u => u.ResetToken.Equals(token, StringComparison.Ordinal));
         }
 
         public bool ResetPassword(string token, string password)
@@ -101,7 +101,7 @@ namespace CookieMVC.ApplicationServices
 
             if (password.Length >= AppSettings.MinPasswordLength)
             {
-                var user = Context.Users.SingleOrDefault(u => u.ResetToken.Equals(token, StringComparison.OrdinalIgnoreCase));
+                var user = Context.Users.SingleOrDefault(u => u.ResetToken.Equals(token, StringComparison.Ordinal));
                 if (user != null && user.ResetTokenExpiresOn > DateTime.Now)
                 {
                     user.Password = PasswordUtility.HashPassword(password, iterations);

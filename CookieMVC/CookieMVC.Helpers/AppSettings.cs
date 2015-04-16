@@ -98,6 +98,14 @@ namespace CookieMVC.Helpers
             }
         }
 
+        public static string CopyrightOwnerUrl
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["app.ownerUrl"];
+            }
+        }
+
         public static string Find(string key)
         {
             return ConfigurationManager.AppSettings[key] ?? string.Empty;

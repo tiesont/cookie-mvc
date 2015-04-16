@@ -1,4 +1,5 @@
-﻿using FluentSecurity;
+﻿using System.Web;
+using FluentSecurity;
 using FluentSecurity.Configuration;
 
 namespace CookieMVC.Web
@@ -8,7 +9,7 @@ namespace CookieMVC.Web
         public override void Configure()
         {
             For<Elmah.Mvc.ElmahController>()
-                .AddPolicy<RequiresAdminPolicy>();
+                .AddPolicy<LocalOnlyPolicy>();
         }
     }
 }
