@@ -9,15 +9,10 @@ namespace CookieMVC.Helpers
             get
             {
                 //  Recommended minimum password length.
-                //  See https://www.owasp.org/index.php/Password_length_%26_complexity
+                //  @see https://www.owasp.org/index.php/Password_length_%26_complexity
                 int min = 8;
 
-                if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["app.minPasswordLength"]))
-                {
-                    min = int.Parse(ConfigurationManager.AppSettings["app.minPasswordLength"]);
-                }
-
-                return min;
+                return GetIntegerValue("app.minPasswordLength",min);
             }
         }
 
@@ -27,12 +22,7 @@ namespace CookieMVC.Helpers
             {
                 int max = 5;
 
-                if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["app.maxInvalidPasswordAttempts"]))
-                {
-                    max = int.Parse(ConfigurationManager.AppSettings["app.maxInvalidPasswordAttempts"]);
-                }
-
-                return max;
+                return GetIntegerValue("app.maxInvalidPasswordAttempts",max);
             }
         }
 
@@ -42,12 +32,7 @@ namespace CookieMVC.Helpers
             {
                 int window = 10;
 
-                if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["app.lockedOutWindow"]))
-                {
-                    window = int.Parse(ConfigurationManager.AppSettings["app.lockedOutWindow"]);
-                }
-
-                return window;
+                return GetIntegerValue("app.lockedOutWindow",window);
             } 
         }
 
@@ -57,12 +42,7 @@ namespace CookieMVC.Helpers
             {
                 int window = 60 * 2; // 120 minutes, or 2 hours
 
-                if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["app.passwordResetWindow"]))
-                {
-                    window = int.Parse(ConfigurationManager.AppSettings["app.passwordResetWindow"]);
-                }
-
-                return window;
+                return GetIntegerValue("app.passwordResetWindow", window);
             }
         }
 
@@ -70,7 +50,7 @@ namespace CookieMVC.Helpers
         {
             get
             {
-                return ConfigurationManager.AppSettings["app.name"];
+                return Find("app.name");
             }
         }
 
@@ -78,7 +58,7 @@ namespace CookieMVC.Helpers
         {
             get
             {
-                return ConfigurationManager.AppSettings["app.title"];
+                return Find("app.title");
             }
         }
 
@@ -86,7 +66,7 @@ namespace CookieMVC.Helpers
         {
             get
             {
-                return ConfigurationManager.AppSettings["app.version"];
+                return Find("app.version");
             }
         }
 
@@ -94,7 +74,7 @@ namespace CookieMVC.Helpers
         {
             get
             {
-                return ConfigurationManager.AppSettings["app.owner"];
+                return Find("app.owner");
             }
         }
 
@@ -102,23 +82,38 @@ namespace CookieMVC.Helpers
         {
             get
             {
-                return ConfigurationManager.AppSettings["app.ownerUrl"];
+                return Find("app.ownerUrl");
             }
         }
 
         public static string Find(string key)
         {
+            // By default, ConfigurationManager.AppSettings[key] would return <c>null</c> if the key isn't found.
+            // - @see https://msdn.microsoft.com/en-us/library/8d0bzeeb%28v=vs.110%29.aspx#returns
+            // Using the null-coalescing operator (??) allows me to return a default (empty) string instead.
+            // - @see https://msdn.microsoft.com/en-us/library/ms173224.aspx
             return ConfigurationManager.AppSettings[key] ?? string.Empty;
         }
 
 
         private static bool GetBoolValue(string key, bool defaultValue)
         {
-            var value = ConfigurationManager.AppSettings[key];
-            if (value == null)
+            var value = Find(key);
+            if (string.IsNullOrWhiteSpace(value))
                 return defaultValue;
             bool returnValue;
             if (!bool.TryParse(value, out returnValue))
+                return defaultValue;
+            return returnValue;
+        }
+
+        private static int GetIntegerValue(string key, int defaultValue)
+        {
+            var value = Find(key);
+            if (string.IsNullOrWhiteSpace(value))
+                return defaultValue;
+            int returnValue;
+            if (!int.TryParse(value, out returnValue))
                 return defaultValue;
             return returnValue;
         }
