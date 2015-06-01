@@ -13,6 +13,7 @@ namespace CookieMVC.Web
         {
             var config = SecurityConfigurator.Configure(configuration =>
             {
+                configuration.ResolveServicesUsing(new FluentSecurityServiceLocator());
                 configuration.DefaultPolicyViolationHandlerIs(() => new DenyAccessPolicyViolationHandler());
                 configuration.GetAuthenticationStatusFrom(() => SecurityProvider.IsUserAuthenticated());
 
