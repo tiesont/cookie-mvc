@@ -5,6 +5,11 @@ namespace CookieMVC.Web.Controllers
 {
     public class ErrorController : Controller
     {
+        public ActionResult Index()
+        {
+            return View("general");
+        }
+
         public ActionResult BadRequest()
         {
             return View();

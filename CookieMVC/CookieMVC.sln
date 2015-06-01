@@ -13,6 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieMVC.Data", "CookieMVC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieMVC.Helpers", "CookieMVC.Helpers\CookieMVC.Helpers.csproj", "{79377353-C830-4BDD-A6D8-BACC12E29611}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D6109326-DC4C-4497-8953-11E0A9C71BA2}"
+	ProjectSection(SolutionItems) = preProject
+		initial-setup.sql = initial-setup.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

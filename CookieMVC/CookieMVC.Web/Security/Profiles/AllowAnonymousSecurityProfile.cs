@@ -8,7 +8,7 @@ namespace CookieMVC.Web
         public override void Configure()
         {
             For<Controllers.ErrorController>().AllowAny();
-            For<Controllers.HelpController>().AllowAny();
+            For<Controllers.HomeController>(action => action.Help()).AllowAny();
         }
     }
 }

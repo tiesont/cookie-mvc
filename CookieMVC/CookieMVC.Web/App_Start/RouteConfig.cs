@@ -17,6 +17,13 @@ namespace CookieMVC.Web
             routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
 
             routes.MapRoute(
+                name: "DefaultSans",
+                url: "{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                constraints: new { action = @"help|index" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
