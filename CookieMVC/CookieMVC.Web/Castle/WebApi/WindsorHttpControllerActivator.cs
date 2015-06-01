@@ -7,7 +7,8 @@ using Castle.Windsor;
 
 namespace CookieMVC.Web
 {
-    // Developed by Mark Seemann at http://blog.ploeh.dk/2012/10/03/DependencyInjectioninASP.NETWebAPIwithCastleWindsor/
+    // Developed by Mark Seemann
+    // @see http://blog.ploeh.dk/2012/10/03/DependencyInjectioninASP.NETWebAPIwithCastleWindsor/
     public class WindsorHttpControllerActivator : IHttpControllerActivator
     {
         private readonly IWindsorContainer container;
