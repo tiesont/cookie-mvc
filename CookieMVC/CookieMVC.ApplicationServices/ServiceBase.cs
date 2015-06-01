@@ -11,6 +11,7 @@ namespace CookieMVC.ApplicationServices
         {
             get
             {
+                // DbContext is lazy-loaded
                 if (context == null)
                 {
                     context = new Data.DataContext();

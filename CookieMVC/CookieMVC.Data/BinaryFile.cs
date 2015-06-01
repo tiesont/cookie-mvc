@@ -12,18 +12,12 @@ namespace CookieMVC.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class BinaryFile
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
-        {
-            this.Users = new HashSet<User>();
-        }
-    
         public int ID { get; set; }
-        public string Name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public string FileName { get; set; }
+        public byte[] FileData { get; set; }
+        public long Size { get; set; }
+        public string MimeType { get; set; }
     }
 }
