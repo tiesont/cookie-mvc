@@ -5,23 +5,23 @@ namespace CookieMVC.ApplicationServices
 {
     public interface IMembershipService : IDisposable
     {
-        bool ValidateCredentials(string userName, string password);
+        bool CredentialsAreValid(string userName, string password);
 
-        MembershipStatus CheckMembershipStatus(string userName);
+        MembershipStatus GetMembershipStatus(string userName);
 
         string GeneratePasswordResetToken(string userName);
-        bool IsResetTokenValid(string token);
+        bool ResetTokenIsValid(string token);
         bool ResetPassword(string token, string password);
         bool UpdatePasswordForUser(string userName, string oldPassword, string newPassword);
 
-        bool IsUserInRole(string userName, string roleName);
+        bool UserIsInRole(string userName, string roleName);
         bool UserHasAnyRole(string userName, params string[] roles);
         bool UserHasAllRoles(string userName, params string[] roles);
         IEnumerable<string> GetRolesForUser(string userName);
 
         bool LockUser(string userName);
-        bool UnLockUser(string userName);
+        bool UnlockUser(string userName);
 
-        bool IsUserNameAvailable(string userName);
+        bool UserNameIsAvailable(string userName);
     }
 }

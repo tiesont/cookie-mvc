@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using CookieMVC.Helpers;
 using CookieMVC.Security;
 
@@ -12,20 +13,20 @@ namespace CookieMVC.ApplicationServices
     {
         private readonly int iterations = 2000;
 
-        public bool ValidateCredentials(string userName, string password)
+        public bool CredentialsAreValid(string userName, string password)
         {
             bool valid = false;
             var user = Context.Users.SingleOrDefault(u => u.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase));
             if (user != null)
             {
-                if (user.IsActive && (user.LockedOutOn == null || user.LockedOutOn.Value.AddMinutes(AppSettings.LockedOutWindow) < DateTime.Now))
+                if (user.IsActive && (user.LockedOn == null || user.LockedOn.Value.AddMinutes(AppSettings.LockedOutWindow) < DateTime.Now))
                 {
-                    if (PasswordUtility.VerifyHashedPassword(user.Password, password, iterations))
+                    if (PasswordUtility.VerifyHashedPassword(user.Password, user.Salt + password, iterations))
                     {
                         valid = true;
-                        if (user.PasswordAttempts > 0 || user.LockedOutOn != null && user.LockedOutOn.Value.AddMinutes(AppSettings.LockedOutWindow) < DateTime.Now)
+                        if (user.PasswordAttempts > 0 || (user.LockedOn != null && user.LockedOn.Value.AddMinutes(AppSettings.LockedOutWindow) < DateTime.Now))
                         {
-                            UnLockUser(userName);
+                            UnlockUser(userName);
                         }
                     }
                     else
@@ -46,7 +47,7 @@ namespace CookieMVC.ApplicationServices
             return valid;
         }
 
-        public MembershipStatus CheckMembershipStatus(string userName)
+        public MembershipStatus GetMembershipStatus(string userName)
         {
             MembershipStatus statusCode = MembershipStatus.NotRegistered;
             var user = Context.Users.SingleOrDefault(u => u.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase));
@@ -55,7 +56,7 @@ namespace CookieMVC.ApplicationServices
             {
                 if (user.IsActive)
                 {
-                    if (user.LockedOutOn != null)
+                    if (user.LockedOn != null)
                     {
                         statusCode = MembershipStatus.Locked;
                     }
@@ -64,7 +65,7 @@ namespace CookieMVC.ApplicationServices
                         statusCode = MembershipStatus.Active;
                     }
                 }
-                else if (!user.IsActive)
+                else
                 {
                     statusCode = MembershipStatus.NotActive;
                 }
@@ -90,7 +91,7 @@ namespace CookieMVC.ApplicationServices
             return token;
         }
 
-        public bool IsResetTokenValid(string token)
+        public bool ResetTokenIsValid(string token)
         {
             return Context.Users.Any(u => u.ResetToken.Equals(token, StringComparison.Ordinal));
         }
@@ -104,8 +105,8 @@ namespace CookieMVC.ApplicationServices
                 var user = Context.Users.SingleOrDefault(u => u.ResetToken.Equals(token, StringComparison.Ordinal));
                 if (user != null && user.ResetTokenExpiresOn > DateTime.Now)
                 {
-                    user.Password = PasswordUtility.HashPassword(password, iterations);
                     user.Salt = HashUtility.GenerateSalt();
+                    user.Password = PasswordUtility.HashPassword(user.Salt + password, iterations);
                     user.ResetToken = null;
                     user.ResetTokenExpiresOn = null;
 
@@ -134,8 +135,8 @@ namespace CookieMVC.ApplicationServices
                 {
                     if (PasswordUtility.VerifyHashedPassword(user.Password, oldPassword, iterations))
                     {
-                        user.Password = PasswordUtility.HashPassword(newPassword, iterations);
                         user.Salt = HashUtility.GenerateSalt();
+                        user.Password = PasswordUtility.HashPassword(user.Salt + newPassword, iterations);
                         user.UpdatedOn = DateTime.Now;
 
                         success = Context.SaveChanges(true) > 0;
@@ -150,7 +151,7 @@ namespace CookieMVC.ApplicationServices
             return success;
         }
 
-        public bool IsUserInRole(string userName, string roleName)
+        public bool UserIsInRole(string userName, string roleName)
         {
             bool matchFound = false;
             var user = Context.Users.SingleOrDefault(u => u.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase));
@@ -204,7 +205,7 @@ namespace CookieMVC.ApplicationServices
             if (user != null)
             {
                 var today = DateTime.Now;
-                user.LockedOutOn = today;
+                user.LockedOn = today;
                 user.UpdatedOn = today;
 
                 success = Context.SaveChanges(true) > 0;
@@ -213,7 +214,7 @@ namespace CookieMVC.ApplicationServices
             return success;
         }
 
-        public bool UnLockUser(string userName)
+        public bool UnlockUser(string userName)
         {
             bool success = false;
             var user = Context.Users.SingleOrDefault(u => u.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase));
@@ -221,7 +222,7 @@ namespace CookieMVC.ApplicationServices
             if (user != null)
             {
                 user.PasswordAttempts = 0;
-                user.LockedOutOn = null;
+                user.LockedOn = null;
                 user.UpdatedOn = DateTime.Now;
 
                 success = Context.SaveChanges(true) > 0;
@@ -230,7 +231,7 @@ namespace CookieMVC.ApplicationServices
             return success;
         }
 
-        public bool IsUserNameAvailable(string userName)
+        public bool UserNameIsAvailable(string userName)
         {
             return !Context.Users.Any(user => user.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase));
         }

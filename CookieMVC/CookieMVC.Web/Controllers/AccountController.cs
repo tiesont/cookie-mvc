@@ -38,7 +38,7 @@ namespace CookieMVC.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var valid = await Task.Factory.StartNew(() => Membership.ValidateCredentials(model.Email, model.Password));
+                    var valid = await Task.Run(() => Membership.CredentialsAreValid(model.Email, model.Password));
                     if (valid)
                     {
                         AuthenticationManager.SignIn(model.Email, model.CreatePersistentSession);
@@ -46,7 +46,7 @@ namespace CookieMVC.Web.Controllers
                     }
                     else
                     {
-                        var statusCode = Membership.CheckMembershipStatus(model.Email);
+                        var statusCode = Membership.GetMembershipStatus(model.Email);
                         string message = string.Empty;
 
                         switch (statusCode)
@@ -86,10 +86,10 @@ namespace CookieMVC.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var userStatus = await Task.Factory.StartNew(() => Membership.CheckMembershipStatus(model.Email));
+                    var userStatus = await Task.Run(() => Membership.GetMembershipStatus(model.Email));
                     if (userStatus == MembershipStatus.Active)
                     {
-                        string token = await Task.Factory.StartNew(() => Membership.GeneratePasswordResetToken(model.Email));
+                        string token = await Task.Run(() => Membership.GeneratePasswordResetToken(model.Email));
                         var resetLink = Url.Action("resetpassword", "account", new { id = token }, protocol: Request.Url.Scheme);
                         string html = string.Format("<a href=\"{0}\">{1}</a>", resetLink, resetLink);
                         await SendEmailAsync("PasswordResetNotification", model.Email, "Reset Password", html, resetLink);
@@ -133,7 +133,7 @@ namespace CookieMVC.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    bool result = await Task.Factory.StartNew(() => Membership.ResetPassword(model.Token, model.Password));
+                    bool result = await Task.Run(() => Membership.ResetPassword(model.Token, model.Password));
                     if (result)
                     {
                         TempData.Clear();
