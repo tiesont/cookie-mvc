@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="CookieMVC.Data.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="BinaryFile">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FileName" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="FileData" Type="varbinary(max)" Nullable="false" />
-          <Property Name="Size" Type="bigint" Nullable="false" />
-          <Property Name="MimeType" Type="nvarchar" MaxLength="300" Nullable="false" />
-        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="ID" />
@@ -73,7 +63,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CookieMVCDataStoreContainer">
-          <EntitySet Name="BinaryFile" EntityType="Self.BinaryFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
@@ -91,16 +80,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CookieMVC.Data" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="BinaryFile">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FileData" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="Size" Type="Int64" Nullable="false" />
-          <Property Name="MimeType" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="ID" />
@@ -133,7 +112,6 @@
           <End Role="User" Type="Self.User" Multiplicity="*" />
         </Association>
         <EntityContainer Name="DataContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="BinaryFiles" EntityType="Self.BinaryFile" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="UserRole" Association="Self.UserRole">
@@ -147,17 +125,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CookieMVCDataStoreContainer" CdmEntityContainer="DataContext">
-          <EntitySetMapping Name="BinaryFiles">
-            <EntityTypeMapping TypeName="CookieMVC.Data.BinaryFile">
-              <MappingFragment StoreEntitySet="BinaryFile">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="FileData" ColumnName="FileData" />
-                <ScalarProperty Name="Size" ColumnName="Size" />
-                <ScalarProperty Name="MimeType" ColumnName="MimeType" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="CookieMVC.Data.Role">
               <MappingFragment StoreEntitySet="Role">

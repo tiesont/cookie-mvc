@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4acb297c4075464ba52991d260956ac4" Name="Diagram1">
-        <EntityTypeShape EntityType="CookieMVC.Data.BinaryFile" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CookieMVC.Data.Role" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CookieMVC.Data.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="CookieMVC.Data.UserRole" ManuallyRouted="false" />

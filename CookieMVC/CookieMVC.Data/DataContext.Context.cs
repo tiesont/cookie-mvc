@@ -25,7 +25,6 @@ namespace CookieMVC.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<BinaryFile> BinaryFiles { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
