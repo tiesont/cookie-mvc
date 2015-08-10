@@ -1,7 +1,7 @@
 # Cookie.MVC
 Provides most of the bits necessary to get an ASP.NET MVC application up and running. Includes Castle Windsor components for DI and Fluent Security for authorization.
 
-You will also find an SQL script you can run to setup the initial database. This script and the mapped database both assume SQL Server 2008 R2 or better.
+You will also find [an SQL script](CookieMVC/initial-setup.sql) you can run to setup the initial database. This script and the mapped database both assume SQL Server 2008 R2 or better.
 
 ### License
 
